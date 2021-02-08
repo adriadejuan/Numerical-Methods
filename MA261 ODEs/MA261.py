@@ -4,6 +4,10 @@ from numpy import array
 from numpy.linalg import norm
 from numpy import sin,cos,pi
 
+def forwardEuler(f, Df, t0, y0, h):
+      y = y0 + h*f(t0,y0)
+      return y
+
 def evolve(phi, f,Df, t0,y0, T,N):
     h = T/N
     y = [0]*(N+1)
@@ -11,10 +15,6 @@ def evolve(phi, f,Df, t0,y0, T,N):
     for i in range(1,N+1):
         y[i] = phi(f,Df,h*i,y[i-1],h)
     return y
-    
-def forwardEuler(f, Df, t0, y0, h):
-      y = y0 + h*f(t0,y0)
-      return y
       
 def newton (F, DF, x0, eps, K):
     x = x0 - np.matmul(np.linalg.inv(DF(x0)),F(x0))
